@@ -45,13 +45,32 @@ public class BloomFilter<E> {
     }
 
     public static void main(String[] args){
-       System.out.println(test(100, 100000, true));
+        // base 16,64,100
+        List<Integer> kVals = Arrays.asList(new int[] {8, 9, 10, 11, 12, 13, 14, 15, 16});
+        List<Integer> bVals = Arrays.asList(new int[] {16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128});
+        List<Integere> mVals = Arrays.asList(new int[] {10, 15, 20, 25, 30, 35, 40, 45, 50});
 
+        FileWriter csvWriter = new FileWriter("./BloomFilterValues.csv");
+
+        for (int k : kVals) {
+            for (int b : bVals) {
+                for (int m : mVals) {
+                    double testVal = test(k, b, m, 100000));
+                    csvWriter.append(k + ',' + b + ',' + m + ',' + testVal + '\n');
+                }
+            }
+        }
+
+        csvWriter.flush();
+        csvWriter.close();
     }
 
+    public static double test(int k, int b, int m, int testM){
+        test(k, b, m, testM, false);
+    }
 
-    public static double test(int m, int testM, boolean print){
-        BloomFilter<Integer> bf = new BloomFilter<Integer>(8*2, 32*2, m);
+    public static double test(int k, int b, int m, int testM, boolean print){
+        BloomFilter<Integer> bf = new BloomFilter<Integer>(k, b, m);
         int[] val = new int[m];
         //add m unique items
         for(int i = 0; i < m; i++){
@@ -84,7 +103,7 @@ public class BloomFilter<E> {
         //609517
 
 
-        return (double) falsePositive / testM;
+        return ((double) falsePositive / testM) * 100;
     }
 
     public static boolean searchArray(int[] A, int e){
