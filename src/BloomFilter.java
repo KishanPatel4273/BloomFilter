@@ -1,4 +1,8 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.List;
 
 public class BloomFilter<E> {
 
@@ -44,19 +48,25 @@ public class BloomFilter<E> {
         return str;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         // base 16,64,100
-        List<Integer> kVals = Arrays.asList(new int[] {8, 9, 10, 11, 12, 13, 14, 15, 16});
-        List<Integer> bVals = Arrays.asList(new int[] {16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128});
-        List<Integere> mVals = Arrays.asList(new int[] {10, 15, 20, 25, 30, 35, 40, 45, 50});
+        List<Integer> kVals = Arrays.asList(8, 9, 10, 11, 12, 13, 14, 15, 16);
+        List<Integer> bVals = Arrays.asList(16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128);
+        List<Integer> mVals = Arrays.asList(10, 15, 20, 25, 30, 35, 40, 45, 50);
 
-        FileWriter csvWriter = new FileWriter("./BloomFilterValues.csv");
-
+        FileWriter csvWriter = null;
+        try {
+            csvWriter = new FileWriter("./BloomFilterValues.csv");
+        } catch(Exception E){
+            
+        }
+        csvWriter.append((String) ("k,b,m,value\n"));
+      
         for (int k : kVals) {
             for (int b : bVals) {
                 for (int m : mVals) {
-                    double testVal = test(k, b, m, 100000));
-                    csvWriter.append(k + ',' + b + ',' + m + ',' + testVal + '\n');
+                    double testVal = test(k, b, m, 100000);
+                    csvWriter.append((String) (k + "," + b + "," + m + "," + String.valueOf(testVal) + '\n'));
                 }
             }
         }
@@ -66,7 +76,7 @@ public class BloomFilter<E> {
     }
 
     public static double test(int k, int b, int m, int testM){
-        test(k, b, m, testM, false);
+        return test(k, b, m, testM, false);
     }
 
     public static double test(int k, int b, int m, int testM, boolean print){
