@@ -52,7 +52,7 @@ public class BloomFilter<E> {
         // base 16,64,100
         List<Integer> kVals = Arrays.asList(8, 9, 10, 11, 12, 13, 14, 15, 16);
         List<Integer> bVals = Arrays.asList(16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128);
-        List<Integer> mVals = Arrays.asList(10, 15, 20, 25, 30, 35, 40, 45, 50);
+        List<Integer> mVals = Arrays.asList(10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 );
 
         FileWriter csvWriter = null;
         try {
