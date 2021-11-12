@@ -1,32 +1,33 @@
 import csv
-import matplotlib
+import matplotlib.pyplot as plt
 
 with open('../BloomFilterValues.csv') as file:
     data = csv.DictReader(file)
     d = {}
     for row in data:
         k, b, m, value = row['k'], row['b'], row['m'], row['value']
-        if k in d:
-            if b in d[k]:
-                if m in d[k][b]:
-                    d[k][b][m] = value
-                else:
-                    d[k][b] = {m: value}
-            else:
-                d[k] = {b: {m: value}}
-        else:
-            d = {k: {b: {m: value}}}
+        if not k in d:
+            d[k] = {}
+        if not b in d[k]:
+            d[k][b] = {}
+        d[k][b][m] = value
 
-    defaultK, defaultB, defaultM = 16, 32, 50
+    defaultK, defaultB, defaultM = str(16), str(32), str(50)
 
-    kVals = [i for i in range(8, 16 + 1)]:
-    for k in kVals:
-        # draw graph with k, defaultB, defaultM
+    kVals = [str(i) for i in range(8, 16 + 1)]
+    kYVals = [d[k][defaultB][defaultM] for k in kVals]
+    plt.plot(kVals, kYVals, 'ro')
+    # plt.axis(min(kVals), max(kVals), min(kYVals), max(kYVals))
+    plt.show()
 
-    bVals = [i for i in range(16, 128 + 1, 8)]:
-    for b in bVals:
-        # draw graph with k, defaultB, defaultM
+    bVals = [str(i) for i in range(16, 128 + 1, 8)]
+    bYVals = [d[defaultK][b][defaultM] for b in bVals]
+    plt.plot(bVals, bYVals, 'ro')
+    # plt.axis(min(bVals), max(bVals), min(bYVals), max(bYVals))
+    plt.show()
 
-    mVals = [i for i in range(10, 100 + 1, 5)]:
-    for m in mVals:
-        # draw graph with k, defaultB, defaultM
+    mVals = [str(i) for i in range(10, 100 + 1, 5)]
+    mYVals = [d[defaultK][defaultB][m] for m in mVals]
+    plt.plot(mVals, mYVals, 'ro')
+    # plt.axis(min(mVals), max(mVals), min(mYVals), max(mYVals))
+    plt.show()
