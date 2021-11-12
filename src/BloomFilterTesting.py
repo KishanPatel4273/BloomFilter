@@ -1,10 +1,8 @@
-#'/Users/kishan/Workspace/intelliJ-workspace/BloomFilterProject/src/BloomFilter.java',
+import csv
+# import matplotlib
 
-import subprocess
-import os
-
-process = subprocess.Popen('java -cp .Workspace.TestProject.bin.VirtualMemorySimulatorPart3')
-pid=str(process.pid)
-os.popen('java .Workspace.TestProject.bin.JVMRuntimeClient -pid' + pid)
-print(pid)
-exit()
+with open('../BloomFilterValues.csv') as file:
+    data = csv.DictReader(file)
+    for row in data:
+        print(row['k'], row['b'], row['m'], row['value'])
+    
