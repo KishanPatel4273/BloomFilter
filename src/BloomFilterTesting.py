@@ -17,17 +17,14 @@ with open('../BloomFilterValues.csv') as file:
     kVals = [str(i) for i in range(8, 16 + 1)]
     kYVals = [d[k][defaultB][defaultM] for k in kVals]
     plt.plot(kVals, kYVals, 'ro')
-    # plt.axis(min(kVals), max(kVals), min(kYVals), max(kYVals))
     plt.show()
 
     bVals = [str(i) for i in range(16, 128 + 1, 8)]
     bYVals = [d[defaultK][b][defaultM] for b in bVals]
     plt.plot(bVals, bYVals, 'ro')
-    # plt.axis(min(bVals), max(bVals), min(bYVals), max(bYVals))
     plt.show()
 
     mVals = [str(i) for i in range(10, 100 + 1, 5)]
     mYVals = [d[defaultK][defaultB][m] for m in mVals]
     plt.plot(mVals, mYVals, 'ro')
-    # plt.axis(min(mVals), max(mVals), min(mYVals), max(mYVals))
     plt.show()
